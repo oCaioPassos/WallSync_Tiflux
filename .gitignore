@@ -1,0 +1,48 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+*.whl
+
+# === Ambientes virtuais ===
+venv/
+env/
+.venv/
+.env/
+
+# === Configurações locais (contém token sensível) ===
+config.json
+
+# === Logs ===
+log.txt
+*.log
+
+# === Arquivos temporários ===
+*.tmp
+*.temp
+wallsync_*
+*.bak
+
+# === IDE / Editor ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# === Sistema Operacional ===
+Thumbs.db
+Desktop.ini
+.DS_Store
+ehthumbs.db
+
+# === PyInstaller ===
+*.spec

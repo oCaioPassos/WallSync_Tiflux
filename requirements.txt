@@ -1,0 +1,6 @@
+customtkinter
+requests
+tkcalendar
+babel
+pywinstyles
+Pillow
