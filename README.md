@@ -258,21 +258,27 @@ Este projeto é público e de uso livre. Sinta-se à vontade para usar, modifica
 
 ---
 
-## 📺 Canais do Autor
+## Autor
 
-| Canal / Rede | Link |
-|---|---|
-| YouTube — Hey, Caio! | [youtube.com/@heyca1o](https://www.youtube.com/@heyca1o) |
-| YouTube — DroidTech | [youtube.com/@DroidTechDicasTutoriais100K](https://www.youtube.com/@DroidTechDicasTutoriais100K) |
-| Instagram | [instagram.com/heyca1o](https://www.instagram.com/heyca1o/) |
+<p>
+  <a href="https://www.youtube.com/@heyca1o">
+    <img src="https://img.shields.io/badge/Hey,_Caio!-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Hey, Caio! no YouTube">
+  </a>
+  <a href="https://www.youtube.com/@DroidTechDicasTutoriais100K">
+    <img src="https://img.shields.io/badge/DroidTech-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="DroidTech no YouTube">
+  </a>
+  <a href="https://www.instagram.com/heyca1o/">
+    <img src="https://img.shields.io/badge/@heyca1o-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram">
+  </a>
+</p>
 
 ---
 
 <p align="center">
   <strong>WallSync Tiflux v1.0.0</strong><br>
   Desenvolvido por <strong>Caio Passos</strong><br>
-  <a href="https://www.youtube.com/@heyca1o">📺 Hey, Caio!</a> &nbsp;|&nbsp;
-  <a href="https://www.youtube.com/@DroidTechDicasTutoriais100K">📺 DroidTech</a> &nbsp;|&nbsp;
-  <a href="https://www.instagram.com/heyca1o/">📸 Instagram</a><br>
+  <a href="https://www.youtube.com/@heyca1o"><img src="https://img.shields.io/badge/Hey,_Caio!-FF0000?style=flat-square&logo=youtube&logoColor=white" alt="Hey, Caio!"></a>
+  <a href="https://www.youtube.com/@DroidTechDicasTutoriais100K"><img src="https://img.shields.io/badge/DroidTech-FF0000?style=flat-square&logo=youtube&logoColor=white" alt="DroidTech"></a>
+  <a href="https://www.instagram.com/heyca1o/"><img src="https://img.shields.io/badge/@heyca1o-E4405F?style=flat-square&logo=instagram&logoColor=white" alt="Instagram"></a><br>
   Powered by Python + CustomTkinter + API Tiflux RMM
 </p>
