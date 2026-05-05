@@ -15,6 +15,8 @@
 
 ## 📋 Sobre o Projeto
 
+> **Projeto público e gratuito.** Se você usa o Tiflux e precisa manter wallpapers corporativos atualizados em múltiplas máquinas de forma automática e confiável, este projeto foi feito para você. Fique à vontade para usar, adaptar e contribuir.
+
 O **WallSync Tiflux** é uma ferramenta desktop desenvolvida para **eliminar o processo manual** de agendamento de scripts de wallpaper na plataforma [Tiflux RMM](https://app.tiflux.com).
 
 ### O Problema
@@ -35,7 +37,7 @@ O WallSync Tiflux resolve esse problema utilizando a **API REST do Tiflux** para
 - ✅ **Filtrar por expediente** — Configure horário de início e fim do expediente para não agendar fora do horário comercial
 - ✅ **Selecionar dias da semana** — Escolha quais dias (Seg-Dom) devem receber os agendamentos
 - ✅ **Ignorar horários passados** — Se a data inicial for hoje, horários que já passaram são automaticamente ignorados
-- ✅ **Consultar e cancelar** — Visualize todos os agendamentos agrupados por dia e cancele seletivamente
+- ✅ **Consultar e cancelar** — Visualize todos os agendamentos agrupados por dia e cancele seletivamente pelo WallSync ou diretamente pela plataforma Tiflux em **Recursos → Scripts agendados**
 - ✅ **Preview do wallpaper** — Visualize o papel de parede que será aplicado antes de agendar
 - ✅ **Envio paralelo** — Múltiplas requisições simultâneas para velocidade máxima
 - ✅ **Barra de progresso** — Acompanhe o andamento em tempo real
@@ -127,12 +129,32 @@ Após iniciar os agendamentos, a página **Recursos → Scripts agendados** no T
 
 ### 1. Obter o Bearer Token da Tiflux
 
-1. Acesse [https://app.tiflux.com](https://app.tiflux.com)
-2. Faça login com suas credenciais
-3. Abra o **DevTools** do navegador (F12) → aba **Network**
-4. Realize qualquer ação na plataforma
-5. Localize uma requisição à API e copie o header `Authorization: Bearer <TOKEN>`
-6. Cole o token no campo "Bearer Token" do WallSync Tiflux
+O WallSync suporta dois tipos de token — escolha o que melhor se adapta ao seu uso:
+
+#### Token Temporário (via DevTools) — rápido, expira com a sessão
+
+1. Acesse [https://app.tiflux.com](https://app.tiflux.com) e faça login
+2. Abra o **DevTools** do navegador → `F12` → aba **Network**
+3. Realize qualquer ação na plataforma (ex: abrir Scripts)
+4. Clique em qualquer requisição à API → aba **Headers**
+5. Copie o valor do header `Authorization: Bearer <TOKEN>`
+6. Cole no campo **Bearer Token** do WallSync
+
+> ⚠️ Este token expira quando a sessão do navegador encerra. Se o WallSync retornar `401 Unauthorized`, gere um novo token.
+
+#### Token Fixo / Permanente (via API v2) — recomendado para uso contínuo
+
+Tokens da API v2 **não expiram** — são revogados apenas manualmente ou ao inativar o usuário.
+
+**Pré-requisito (feito pelo admin):** Acesse **Configurações → Usuários → Usuários**, localize o usuário e habilite **"API por usuário"**.
+
+**Gerar o token (feito pelo próprio usuário):** Acesse **Configurações → Minha Conta → Sessões → Sessões API** e clique em **"Gerar novo token de sessão"**.
+
+> ⚠️ O token é exibido **apenas uma vez** — copie e armazene imediatamente em local seguro.
+
+📄 Consulte o passo a passo completo com screenshots em [`docs/api-tiflux.md`](docs/api-tiflux.md#autenticação).
+
+---
 
 > ⚠️ **Importante:** O token é salvo localmente em `config.json` e **nunca** é compartilhado ou enviado para terceiros. Certifique-se de não versionar este arquivo (já está no `.gitignore`).
 
@@ -140,11 +162,11 @@ Após iniciar os agendamentos, a página **Recursos → Scripts agendados** no T
 
 Antes de usar o WallSync, você precisa ter um **script de wallpaper cadastrado** na Tiflux:
 
-1. Acesse **Tiflux** → **RMM** → **Scripts**
-2. Crie um novo script do tipo **PowerShell** com o conteúdo do template de wallpaper
-3. O script deve conter a URL da imagem do wallpaper que será aplicada
+1. Acesse **Configurações → Recursos → Scripts**
+2. Clique em **+ Script** → tipo **PowerShell (.ps1)**, timeout **160s**, executar como usuário **OFF**
+3. Cole o conteúdo do template e atualize `$desiredWallpaperName` e `$wallpaperUrl`
 
-> 📄 Consulte a documentação detalhada em [`docs/script-wallpaper.md`](docs/script-wallpaper.md) para ver o template completo do script.
+> 📄 Consulte o template completo e o passo a passo com screenshots em [`docs/script-wallpaper.md`](docs/script-wallpaper.md).
 
 ---
 
@@ -163,11 +185,21 @@ Antes de usar o WallSync, você precisa ter um **script de wallpaper cadastrado*
 
 ### Consultar e Cancelar Agendamentos
 
+Os agendamentos podem ser cancelados de duas formas:
+
+**Pelo WallSync (recomendado para cancelamento em lote):**
+
 1. Clique em **"📋 Consultar Agendamentos"** na sidebar
-2. Os agendamentos serão carregados e **agrupados por dia**
+2. Os agendamentos são carregados e **agrupados por dia**
 3. Clique em **"+"** para expandir os horários de cada dia
-4. **Selecione** os agendamentos que deseja cancelar (individualmente ou o dia inteiro)
-5. Clique em **"🗑️ Excluir Selecionados"** para cancelá-los via API
+4. Selecione individualmente ou use **"Selecionar Todos"**
+5. Clique em **"🗑️ Excluir Selecionados"** para cancelar via API
+
+**Pelo Tiflux (cancelamento individual ou pontual):**
+
+Acesse **Recursos → Scripts agendados** na plataforma Tiflux. A listagem mostra todos os agendamentos com script, destino, responsável e data/hora. Clique no botão ✕ vermelho ao lado do agendamento para cancelá-lo individualmente.
+
+> Para mais detalhes, consulte [`docs/script-wallpaper.md`](docs/script-wallpaper.md#cancelamento-de-agendamentos).
 
 ---
 
@@ -222,12 +254,25 @@ wallsync-tiflux/
 
 ## 📝 Licença
 
-Este projeto é de uso interno. Consulte o administrador para detalhes sobre distribuição.
+Este projeto é público e de uso livre. Sinta-se à vontade para usar, modificar e distribuir.
+
+---
+
+## 📺 Canais do Autor
+
+| Canal / Rede | Link |
+|---|---|
+| YouTube — Hey, Caio! | [youtube.com/@heyca1o](https://www.youtube.com/@heyca1o) |
+| YouTube — DroidTech | [youtube.com/@DroidTechDicasTutoriais100K](https://www.youtube.com/@DroidTechDicasTutoriais100K) |
+| Instagram | [instagram.com/heyca1o](https://www.instagram.com/heyca1o/) |
 
 ---
 
 <p align="center">
   <strong>WallSync Tiflux v1.0.0</strong><br>
   Desenvolvido por <strong>Caio Passos</strong><br>
+  <a href="https://www.youtube.com/@heyca1o">📺 Hey, Caio!</a> &nbsp;|&nbsp;
+  <a href="https://www.youtube.com/@DroidTechDicasTutoriais100K">📺 DroidTech</a> &nbsp;|&nbsp;
+  <a href="https://www.instagram.com/heyca1o/">📸 Instagram</a><br>
   Powered by Python + CustomTkinter + API Tiflux RMM
 </p>

@@ -479,6 +479,52 @@ Após executar, o sistema mantém um histórico com status de cada execução.
 
 ---
 
+## Agendamento Manual pelo Tiflux
+
+O Tiflux permite criar agendamentos de execução de script **por dispositivo** diretamente pela interface web — sem necessidade do WallSync. Útil para agendar em uma máquina específica ou testar o script antes de um envio em lote.
+
+### Passo a passo
+
+**1.** Em **Recursos**, clique no ícone do sistema operacional do dispositivo para abrir seu dashboard.
+
+![Dashboard de agentes — acesso via ícone do SO](images/tiflux-scripts-dashboard.png)
+
+**2.** No dashboard do agente, acesse a seção **Scripts** e clique em **Executar Script**.
+
+![Aba Scripts — botão Executar Script](images/tiflux-scripts-executar.png)
+
+**3.** Selecione o script cadastrado, defina a **data e hora** de execução e confirme.
+
+![Formulário de execução — seleção de script e data](images/tiflux-scripts-confirmar.png)
+
+**4.** Após a execução, o histórico fica disponível no dashboard do agente.
+
+![Histórico de execuções do script](images/tiflux-scripts-historico.png)
+
+> ⚠️ **Limitação nativa:** O Tiflux não oferece agendamento em lote por intervalo. Para agendar o mesmo script em múltiplos horários ao longo de vários dias em toda a frota, use o **[WallSync Tiflux](../README.md)**.
+
+---
+
+## Cancelamento de Agendamentos
+
+Os agendamentos pendentes podem ser cancelados de duas formas:
+
+### Pelo WallSync (cancelamento em lote)
+
+Na sidebar, clique em **"📋 Consultar Agendamentos"**. Os agendamentos são listados agrupados por dia. Selecione individualmente, por dia inteiro, ou use **"Selecionar Todos"** e clique em **"🗑️ Excluir Selecionados"**.
+
+![WallSync — Consultar Agendamentos com seleção e exclusão em lote](images/wallsync-consult.png)
+
+### Pelo Tiflux (cancelamento individual)
+
+Acesse **Recursos → Scripts agendados** na plataforma Tiflux. A listagem exibe todos os agendamentos com script, destino (**Clientes**), responsável e data/hora agendada. Clique no botão **✕ vermelho** ao lado do agendamento para cancelá-lo.
+
+![Tiflux — Scripts agendados com opção de cancelamento individual](images/tiflux-scripts-agendados.png)
+
+> Os agendamentos criados pelo WallSync aparecem normalmente na página de Scripts agendados do Tiflux e podem ser gerenciados por ambas as ferramentas indistintamente.
+
+---
+
 ## Estratégia de Cobertura — Execução Periódica
 
 O script é projetado para ser **executado repetidamente ao longo do dia** (ex: a cada 30 minutos). Isso garante que todas as máquinas, independente de quando estão online, recebam o wallpaper.
