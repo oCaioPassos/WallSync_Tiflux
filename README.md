@@ -66,6 +66,14 @@ Após selecionar o script, o WallSync extrai a URL da imagem do conteúdo do scr
 
 ---
 
+### Consultando e Cancelando Agendamentos
+
+O modal **Consultar Agendamentos** exibe todos os agendamentos agrupados por dia, com horário e ID de cada execução. É possível selecionar individualmente ou usar "Selecionar Todos" para cancelar em lote via **Excluir Selecionados**.
+
+![WallSync — Consultar Agendamentos](docs/images/wallsync-consult.png)
+
+---
+
 ### Resultado no Tiflux — Scripts Agendados
 
 Após iniciar os agendamentos, a página **Recursos → Scripts agendados** no Tiflux mostra todos os horários criados em lote. No exemplo abaixo, 668 agendamentos do "Wallpaper Maio Amarelo 04-05-2026" foram criados automaticamente a cada 30 minutos ao longo do dia.

@@ -46,3 +46,7 @@ ehthumbs.db
 
 # === PyInstaller ===
 *.spec
+
+# Capituras de tela
+screenshots/
+/screenshots/
