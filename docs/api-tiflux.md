@@ -2,6 +2,9 @@
 
 Este documento detalha todos os endpoints da API Tiflux RMM utilizados pelo WallSync Tiflux.
 
+> 📖 **Documentação oficial completa da API Tiflux:** [api.tiflux.com/api/v2/#overview](https://api.tiflux.com/api/v2/#overview)
+> A documentação oficial cobre todos os módulos disponíveis na API v2 com exemplos de requisição e resposta — uma excelente referência para consultas, integrações adicionais ou criação de novos projetos baseados na plataforma Tiflux.
+
 ## Base URL
 
 ```

@@ -230,6 +230,7 @@ wallsync-tiflux/
 | [`docs/api-tiflux.md`](docs/api-tiflux.md) | Endpoints da API Tiflux utilizados (GET, POST, PUT) |
 | [`docs/script-wallpaper.md`](docs/script-wallpaper.md) | Template do script PowerShell de wallpaper |
 | [`docs/changelog.md`](docs/changelog.md) | Histórico de versões e alterações |
+| [API Tiflux — Documentação Oficial](https://api.tiflux.com/api/v2/#overview) | Referência completa de todos os endpoints da API v2 do Tiflux — útil para consultas, integrações e criação de novos projetos |
 
 ---
 
