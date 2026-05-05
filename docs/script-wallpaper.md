@@ -8,7 +8,7 @@ Este documento descreve o script PowerShell de produção utilizado na Tiflux pa
 
 Acesse **Configurações → Recursos → Scripts** (URL: `https://app.tiflux.com/v/configurations/scripts`).
 
-![Configurações > Recursos > Scripts](https://guia-de-uso.tiflux.com/files/QdQxuK7uEaNDhn2QTvNp)
+![Configurações > Recursos > Scripts](images/tiflux-scripts-nav.png)
 
 ---
 
@@ -16,7 +16,7 @@ Acesse **Configurações → Recursos → Scripts** (URL: `https://app.tiflux.co
 
 Na aba **Execução**, clique em **+ Script** no canto superior direito.
 
-![Botão + Script](https://guia-de-uso.tiflux.com/files/TBcNPU2pvO8a60uYKGE0)
+![Botão + Script](images/tiflux-scripts-btn-novo.png)
 
 ---
 
@@ -24,7 +24,7 @@ Na aba **Execução**, clique em **+ Script** no canto superior direito.
 
 Preencha os campos conforme abaixo e cole o conteúdo do script:
 
-![Formulário de configuração do script](https://guia-de-uso.tiflux.com/files/YzanOqTmBLIYjsT4O3G8)
+![Formulário de configuração do script](images/tiflux-scripts-form.png)
 
 | Campo | Valor |
 |-------|-------|
@@ -449,7 +449,7 @@ Após cadastrar o script, a execução ocorre pelo dashboard do agente remoto do
 
 Em **Recursos**, clique no ícone do sistema operacional do dispositivo para abrir seu dashboard.
 
-![Dashboard de agentes — acesso via ícone do SO](https://guia-de-uso.tiflux.com/files/7yiqMaDhaFfIpVLeVl0e)
+![Dashboard de agentes — acesso via ícone do SO](images/tiflux-scripts-dashboard.png)
 
 ---
 
@@ -457,7 +457,7 @@ Em **Recursos**, clique no ícone do sistema operacional do dispositivo para abr
 
 No dashboard do agente, acesse a seção **Scripts** e clique em **Executar Script**.
 
-![Aba Scripts — botão Executar Script](https://guia-de-uso.tiflux.com/files/3RHKaRNDObwzttS7zJ5A)
+![Aba Scripts — botão Executar Script](images/tiflux-scripts-executar.png)
 
 ---
 
@@ -465,7 +465,7 @@ No dashboard do agente, acesse a seção **Scripts** e clique em **Executar Scri
 
 Escolha o script cadastrado, defina a data/hora e confirme.
 
-![Formulário de execução — seleção de script e data](https://guia-de-uso.tiflux.com/files/Wo9tQIcE66Ciq9KDF1Qn)
+![Formulário de execução — seleção de script e data](images/tiflux-scripts-confirmar.png)
 
 > Para agendar em múltiplos horários/dispositivos de forma automática, use o **WallSync Tiflux** (`main.py`).
 
@@ -475,7 +475,47 @@ Escolha o script cadastrado, defina a data/hora e confirme.
 
 Após executar, o sistema mantém um histórico com status de cada execução.
 
-![Histórico de execuções do script](https://guia-de-uso.tiflux.com/files/hdI5z7qprAF2RCAWYP9t)
+![Histórico de execuções do script](images/tiflux-scripts-historico.png)
+
+---
+
+## Estratégia de Cobertura — Execução Periódica
+
+O script é projetado para ser **executado repetidamente ao longo do dia** (ex: a cada 30 minutos). Isso garante que todas as máquinas, independente de quando estão online, recebam o wallpaper.
+
+### Como funciona na prática
+
+```
+08:00 → Script executa na máquina A (online)  → wallpaper aplicado ✅
+08:00 → Script executa na máquina B (offline) → não executou
+08:30 → Script executa na máquina A           → arquivo já existe → sai imediatamente (exit 0) ⏭️
+08:30 → Script executa na máquina B (voltou)  → wallpaper aplicado ✅
+09:00 → Script executa nas máquinas A e B     → arquivo já existe em ambas → sai imediatamente ⏭️
+```
+
+### Verificação de idempotência (linha 1 do script)
+
+A **primeira coisa** que o script faz é checar se o arquivo da imagem já existe no disco:
+
+```powershell
+if (Test-Path $wallpaperPath) {
+    Write-Host "O papel de parede ja se encontra aplicado."
+    exit 0
+}
+```
+
+Se o arquivo já estiver em `C:\Windows\Web\Wallpaper\Windows\`, o script **encerra imediatamente sem fazer nada** — sem download, sem compilação, sem Scheduled Task. O impacto em máquinas que já têm o wallpaper é zero.
+
+### Por que agendar em múltiplos horários?
+
+| Situação | Sem execução periódica | Com execução periódica |
+|---|---|---|
+| Máquina ligada o dia todo | ✅ Aplicado na 1ª execução | ✅ Aplicado na 1ª execução |
+| Máquina ligada às 10h | ❌ Perdeu o agendamento das 8h | ✅ Aplicado no próximo slot (ex: 10:30) |
+| Máquina em hibernação | ❌ Pode não ter executado | ✅ Aplicado quando voltar a ficar ativa |
+| Máquina sem internet pontualmente | ❌ Download falhou, não reaplicou | ✅ Próxima execução tenta novamente |
+
+> O WallSync facilita exatamente isso: com um intervalo de 30 minutos e um dia inteiro de expediente, são criados ~14 agendamentos automaticamente — garantindo cobertura total da frota.
 
 ---
 
@@ -483,7 +523,7 @@ Após executar, o sistema mantém um histórico com status de cada execução.
 
 | Etapa | O que faz |
 |-------|-----------|
-| **1. Idempotência** | Verifica se a imagem já existe — sai com código 0 se sim |
+| **1. Idempotência** | Verifica se a imagem já existe — **sai com `exit 0` imediatamente** se sim (sem custo) |
 | **2. Download** | Baixa a imagem via TLS 1.2 para `C:\Windows\Web\Wallpaper\Windows\` |
 | **3. HKLM PersonalizationCSP** | Configura wallpaper via MDM (Intune-compatible) para lock screen e desktop |
 | **4. Active Setup** | Registra BAT no HKLM para garantir aplicação no próximo login (fallback) |

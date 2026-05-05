@@ -31,6 +31,7 @@ Na plataforma Tiflux, o agendamento de scripts de wallpaper é **extremamente li
 O WallSync Tiflux resolve esse problema utilizando a **API REST do Tiflux** para:
 
 - ✅ **Agendar em lote** — Defina um período (ex: 05/05 a 09/05) e um intervalo (ex: a cada 30 min) e o sistema cria todos os agendamentos automaticamente
+- ✅ **Cobertura garantida por execução periódica** — O script verifica se o wallpaper já está aplicado antes de qualquer ação; se já existir, encerra imediatamente (`exit 0`) sem custo. Isso permite agendar em múltiplos horários ao longo do dia: máquinas que estavam offline ou hibernando recebem o wallpaper na próxima execução disponível
 - ✅ **Filtrar por expediente** — Configure horário de início e fim do expediente para não agendar fora do horário comercial
 - ✅ **Selecionar dias da semana** — Escolha quais dias (Seg-Dom) devem receber os agendamentos
 - ✅ **Ignorar horários passados** — Se a data inicial for hoje, horários que já passaram são automaticamente ignorados

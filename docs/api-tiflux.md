@@ -47,13 +47,13 @@ Tokens da API v2 **não expiram automaticamente** — são revogados apenas manu
 
 Acesse **Configurações → Usuários → Usuários**, localize o usuário e habilite a opção **"API por usuário"**.
 
-![Configurações > Usuários](https://guia-de-uso.tiflux.com/files/rtJv0MCfmOwsJbWgdtHu)
+![Configurações > Usuários](images/tiflux-auth-01-usuarios.png)
 
-![Localizando o usuário](https://guia-de-uso.tiflux.com/files/DrRgamJQBevj2QLVheJL)
+![Localizando o usuário](images/tiflux-auth-02-localizar.png)
 
-![Habilitando API por usuário](https://guia-de-uso.tiflux.com/files/fluwx1ydaQoLwQhODDof)
+![Habilitando API por usuário](images/tiflux-auth-03-api-usuario.png)
 
-![Salvando a configuração](https://guia-de-uso.tiflux.com/files/jA8ENnIvuFo7u0lUAoKc)
+![Salvando a configuração](images/tiflux-auth-04-salvar.png)
 
 ---
 
@@ -61,21 +61,21 @@ Acesse **Configurações → Usuários → Usuários**, localize o usuário e ha
 
 Acesse **Configurações → Minha Conta → Sessões**, localize a seção **"Sessões API"** e clique em **"Gerar novo token de sessão"**.
 
-![Acessando Minha Conta](https://guia-de-uso.tiflux.com/files/cdig01BB7k37RGvW6sUB)
+![Acessando Minha Conta](images/tiflux-auth-05-minha-conta.png)
 
-![Aba Sessões](https://guia-de-uso.tiflux.com/files/a2nAAS1h5rCEAHbhh9lh)
+![Aba Sessões](images/tiflux-auth-06-sessoes.png)
 
-![Seção Sessões API](https://guia-de-uso.tiflux.com/files/OfOBJqcEW0dAE6aSfVN0)
+![Seção Sessões API](images/tiflux-auth-07-sessoes-api.png)
 
-![Botão Gerar novo token de sessão](https://guia-de-uso.tiflux.com/files/Gdrwf76MG2x74PsZnCTz)
+![Botão Gerar novo token de sessão](images/tiflux-auth-08-gerar-token.png)
 
-![Confirmação de geração](https://guia-de-uso.tiflux.com/files/wdS2JUzKEHJMq82AJl80)
+![Confirmação de geração](images/tiflux-auth-09-confirmar.png)
 
 > ⚠️ **O token é exibido apenas uma vez.** Copie e armazene em local seguro imediatamente após a geração.
 
-![Token gerado — copie imediatamente](https://guia-de-uso.tiflux.com/files/rrfHpQR3PMdE2ZYo3WDT)
+![Token gerado — copie imediatamente](images/tiflux-auth-10-token-gerado.png)
 
-![Valor do token para copiar](https://guia-de-uso.tiflux.com/files/4wBe8ld2LmzJedPp3aZJ)
+![Valor do token para copiar](images/tiflux-auth-11-token-valor.png)
 
 ---
 
